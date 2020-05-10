@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: raw-event
+          group: transaction-rpc-processor
+          consumer:
+            retry-template-name: customRetryTemplate
+
+      kafka:
+        bindings:
+          input:
+            consumer:
+              enableDlq: true
+              configuration:
+                isolation.level: read_committed
+
+server.port: 9091
+
